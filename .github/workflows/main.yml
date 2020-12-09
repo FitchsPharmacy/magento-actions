@@ -21,9 +21,10 @@ jobs:
           - 9200:9200
         options: -e="discovery.type=single-node" --health-cmd="curl http://localhost:9200/_cluster/health" --health-interval=10s --health-timeout=5s --health-retries=10
     steps:
-    - uses: actions/checkout@v1 # pulls your repository, M2 src must be in a magento directory
+    - uses: actions/checkout@v2 # pulls your repository, M2 src must be in a magento directory
       with:
-            submodules: recursive
+        ssh-key: ${{secrets.SUBMODULE_MAGENTO_PULL_KEY}}
+        submodules: recursive    
     - name: 'launch magento2 build step'
       uses: MAD-I-T/magento-actions@master
       env:
