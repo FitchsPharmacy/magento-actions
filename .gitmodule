@@ -1,3 +1,0 @@
-[submodule "magento"]
-	path = magento
-	url = https://github.com/FitchsPharmacy/Magento2.git
