@@ -21,6 +21,10 @@ jobs:
           - 9200:9200
         options: -e="discovery.type=single-node" --health-cmd="curl http://localhost:9200/_cluster/health" --health-interval=10s --health-timeout=5s --health-retries=10
     steps:
+    - name: Configure git
+      env:
+        TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
     - uses: actions/checkout@v2 # pulls your repository, M2 src must be in a magento directory
       with:
         ssh-key: ${{secrets.SUBMODULE_MAGENTO_PULL_KEY}}
