@@ -44,6 +44,7 @@ jobs:
         HOST_DEPLOY_PATH: ${{secrets.STAGE_HOST_DEPLOY_PATH}}
         HOST_DEPLOY_PATH_BUCKET: ${{secrets.STAGE_HOST_DEPLOY_PATH}}/bucket
         SSH_PRIVATE_KEY: ${{secrets.STAGE_SSH_PRIVATE_KEY}}
+        SSH_KNOWN_HOSTS: ${{secrets.STAGE_SSH_KNOWN_HOSTS}}
         SSH_CONFIG: ${{secrets.STAGE_SSH_CONFIG}}
         WRITE_USE_SUDO: false
       with:

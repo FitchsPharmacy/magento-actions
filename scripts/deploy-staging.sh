@@ -12,6 +12,7 @@ which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
 eval $(ssh-agent -s)
 mkdir ~/.ssh/ && echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 ssh-add ~/.ssh/id_rsa
+echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
 echo "$SSH_CONFIG" > /etc/ssh/ssh_config && chmod 600 /etc/ssh/ssh_config
 
 
@@ -27,12 +28,12 @@ mkdir -p deployer/scripts/
 cp -R /opt/config/pipelines/scripts/staging deployer/scripts/staging
 
 echo 'creating bucket dir'
-ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null  staging "mkdir -p $HOST_DEPLOY_PATH_BUCKET"
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=~/.ssh/known_hosts  staging "mkdir -p $HOST_DEPLOY_PATH_BUCKET"
 
 
 
 tar cfz "$BUCKET_COMMIT" deployer/scripts/staging magento
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null  "$BUCKET_COMMIT" staging:$HOST_DEPLOY_PATH_BUCKET
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=~/.ssh/known_hosts  "$BUCKET_COMMIT" staging:$HOST_DEPLOY_PATH_BUCKET
 
 
 cd /opt/config/php-deployer
