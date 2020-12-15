@@ -28,12 +28,12 @@ mkdir -p deployer/scripts/
 cp -R /opt/config/pipelines/scripts/staging deployer/scripts/staging
 
 echo 'creating bucket dir'
-ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=~/.ssh/known_hosts  staging "mkdir -p $HOST_DEPLOY_PATH_BUCKET"
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null staging "mkdir -p $HOST_DEPLOY_PATH_BUCKET"
 
 
 
 tar cfz "$BUCKET_COMMIT" deployer/scripts/staging magento
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=~/.ssh/known_hosts  "$BUCKET_COMMIT" staging:$HOST_DEPLOY_PATH_BUCKET
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null  "$BUCKET_COMMIT" staging:$HOST_DEPLOY_PATH_BUCKET
 
 
 cd /opt/config/php-deployer
